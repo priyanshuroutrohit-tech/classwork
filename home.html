@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Auth System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container home-container">
+        <nav class="navbar">
+            <div class="nav-brand">Auth System</div>
+            <div class="nav-user">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+            </div>
+        </nav>
+        
+        <div class="home-content">
+            <h1>Welcome to Dashboard!</h1>
+            <div class="user-info-card">
+                <h3>Hello, <span id="welcomeName"></span>!</h3>
+                <p>You have successfully logged in.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h4>Status</h4>
+                        <p class="status-active">Active</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Account Type</h4>
+                        <p>Premium User</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadUserDashboard();
+            initLogout();
+        });
+    </script>
+</body>
+</html>

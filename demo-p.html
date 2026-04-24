@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>neon@portfolio:~$</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+    
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    
+    body {
+      height: 100vh; background: #0a0a0a;
+      font-family: 'JetBrains Mono', monospace;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Animated Background Grid */
+    .bg-grid {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(0,255,200,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,200,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      z-index: 1;
+    }
+    
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+    
+    /* Floating Particles */
+    .particles {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; pointer-events: none;
+      z-index: 2;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: linear-gradient(45deg, #00ffc8, #0078ff);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+      50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+    }
+    
+    /* Main Terminal */
+    .terminal {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85vmin; height: 75vmin;
+      max-width: 1100px; max-height: 800px;
+      background: rgba(15, 15, 25, 0.95);
+      backdrop-filter: blur(25px);
+      border-radius: 25px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      box-shadow: 
+        0 25px 50px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      z-index: 100;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .terminal:hover {
+      border-color: rgba(0, 255, 200, 0.5);
+      box-shadow: 
+        0 35px 70px rgba(0,120,255,0.3),
+        0 0 100px rgba(0,255,200,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+    
+    /* Header */
+    .terminal-header {
+      padding: 25px 35px;
+      background: linear-gradient(135deg, 
+        rgba(20,20,40,0.9) 0%, 
+        rgba(10,15,35,0.9) 100%);
+      border-radius: 23px 23px 0 0;
+      display: flex; align-items: center; gap: 20px;
+      border-bottom: 1px solid rgba(0,255,200,0.2);
+    }
+    
+    .header-dots {
+      display: flex; gap: 12px;
+    }
+    
+    .dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      animation: dotPulse 3s ease-in-out infinite;
+    }
+    
+    .dot:nth-child(1) {
+      background: linear-gradient(135deg, #ff4757, #ff6b7a);
+      animation-delay: 0s;
+    }
+    .dot:nth-child(2) {
+      background: linear-gradient(135deg, #ffa502, #ffcb6b);
+      animation-delay: 0.3s;
+    }
+    .dot:nth-child(3) {
+      background: linear-gradient(135deg, #2ed573, #54d6a0);
+      animation-delay: 0.6s;
+    }
+    
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    
+    .terminal-title {
+      margin-left: auto;
+      font-size: 18px; font-weight: 700;
+      background: linear-gradient(135deg, #00ffc8 0%, #0078ff 50%, #00ffc8 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+      text-shadow: 0 0 30px rgba(0,255,200,0.5);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Body */
+    .terminal-body {
+      height: calc(100% - 85px);
+      padding: 35px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .terminal-body::-webkit-scrollbar { display: none; }
+    
+    .output-line {
+      margin-bottom: 15px;
+      color: #e0e6ed;
+      font-size: 15px; line-height: 1.6;
+      white-space: pre-wrap;
+      animation: textGlow 0.6s ease-out;
+      text-shadow: 0 0 8px rgba(0,255,200,0.3);
+    }
+    
+    @keyframes textGlow {
+      0% { opacity: 0; text-shadow: 0 0 0 transparent; }
+      100% { opacity: 1; text-shadow: 0 0 8px rgba(0,255,200,0.3); }
+    }
+    
+    .prompt {
+      color: #00ffc8; font-weight: 700;
+      text-shadow: 0 0 12px rgba(0,255,200,0.6);
+    }
+    
+    .success { color: #54d6a0; text-shadow: 0 0 12px rgba(84,214,160,0.6); }
+    .error { color: #ff6b7a; text-shadow: 0 0 12px rgba(255,107,122,0.6); }
+    .info { color: #74b9ff; text-shadow: 0 0 12px rgba(116,185,255,0.6); }
+    
+    .input-line {
+      display: flex; align-items: center;
+      margin-top: 25px; padding-top: 15px;
+      border-top: 1px solid rgba(0,255,200,0.2);
+    }
+    
+    .command-input {
+      flex: 1; background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(0,255,200,0.3);
+      border-radius: 12px;
+      color: #e0e6ed; font-family: inherit;
+      font-size: 15px; padding: 15px 20px;
+      outline: none; backdrop-filter: blur(15px);
+      transition: all 0.3s ease;
+    }
+    
+    .command-input:focus {
+      border-color: #00ffc8;
+      box-shadow: 0 0 25px rgba(0,255,200,0.4);
+      background: rgba(0,0,0,0.6);
+    }
+    
+    /* Project Cards */
+    .project-card {
+      background: rgba(20,25,40,0.8);
+      border: 2px solid rgba(0,255,200,0.2);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 20px 0;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0,255,200,0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .project-card:hover::before {
+      left: 100%;
+    }
+    
+    .project-card:hover {
+      border-color: #00ffc8;
+      box-shadow: 0 20px 40px rgba(0,255,200,0.2);
+      transform: translateY(-8px);
+    }
+    
+    .project-title {
+      font-size: 18px; font-weight: 700;
+      background: linear-gradient(135deg, #00ffc8, #74b9ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    
+    .project-tech {
+      color: #a4b0be; font-size: 14px;
+      margin-bottom: 15px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    
+    .tech-tag {
+      background: rgba(0,255,200,0.1);
+      color: #00ffc8; padding: 4px 12px;
+      border-radius: 20px; font-size: 13px;
+      border: 1px solid rgba(0,255,200,0.3);
+    }
+    
+    .project-metrics {
+      background: rgba(116,185,255,0.15);
+      color: #74b9ff; padding: 15px;
+      border-radius: 12px; font-size: 14px;
+      border-left: 4px solid #74b9ff;
+    }
+    
+    @media (max-width: 768px) {
+      .terminal { width: 92vmin; height: 85vmin; }
+      .terminal-body { padding: 25px; }
+      .output-line { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="particles" id="particles"></div>
+  <div class="terminal" id="terminal"></div>
+
+  <script>
+    // ✨ Floating Particles
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        particles.appendChild(particle);
+      }
+    }
+    
+    // 🔥 Portfolio Data - CUSTOMIZE HERE!
+    const projects = [
+      {
+        name: "E-Commerce Marketplace",
+        tech: ["Next.js 14", "Prisma", "PostgreSQL", "Stripe", "Tailwind"],
+        description: "Full-stack platform with payments & admin dashboard",
+        metrics: "10K+ users | 99.9% uptime | $50K revenue",
+        demo: "https://ecommerce-demo.vercel.app",
+        github: "https://github.com/yourusername/ecommerce"
+      },
+      {
+        name: "Real-time Chat App",
+        tech: ["React", "Node.js", "Socket.io", "MongoDB", "Tailwind"],
+        description: "Live chat with typing indicators & file sharing",
+        metrics: "500 concurrent | 50ms latency | 99.99% uptime",
+        demo: "https://chat-demo.vercel.app",
+        github: "https://github.com/yourusername/chat"
+      },
+      {
+        name: "AI Analytics Dashboard",
+        tech: ["Vue 3", "FastAPI", "TensorFlow", "D3.js", "PostgreSQL"],
+        description: "Real-time ML predictions with interactive charts",
+        metrics: "120fps charts | 10K data/sec | Live predictions",
+        demo: "https://dashboard-demo.vercel.app",
+        github: "https://github.com/yourusername/ai-dashboard"
+      }
+    ];
+
+    let commandHistory = [
+      "╔══════════════════════════════════════════════════════════════════════╗",
+      "║                           NEON TERMINAL v2.0                          ║",
+      "║                Full Stack Developer | React | Node.js                 ║",
+      "╚══════════════════════════════════════════════════════════════════════╝",
+      "",
+      "<span class='info'>✨ Type 'projects' to explore my work! ✨</span>"
+    ];
+    let currentPath = '~';
+
+    function renderTerminal() {
+      const terminal = document.getElementById('terminal');
+      terminal.innerHTML = `
+        <div class="terminal-header">
+          <div class="header-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="terminal-title">neon@portfolio:~$</div>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+          ${commandHistory.map(line => `<div class="output-line">${line}</div>`).join('')}
+          <div class="input-line">
+            <span class="prompt">neon@${currentPath}$</span>
+            <input id="command-input" class="command-input" placeholder="Enter command..." autofocus>
+          </div>
+        </div>
+      `;
+
+      // Command handling
+      const input = document.getElementById('command-input');
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const cmd = input.value.trim();
+          if (cmd) {
+            commandHistory.push(`<span class="prompt">neon@${currentPath}$ ${cmd}</span>`);
+            processCommand(cmd.toLowerCase());
+            input.value = '';
+          }
+        }
+      });
+      
+      scrollToBottom();
+    }
+
+    function processCommand(cmd) {
+      if (cmd === 'projects' || cmd === 'ls') {
+        commandHistory.push("<span class='success'>📁 Loading projects...</span>");
+        setTimeout(() => {
+          projects.forEach((project, i) => {
+            commandHistory.push(`
+              <div class="project-card" onclick="window.open('${project.demo}', '_blank')">
+                <div class="project-title">${i+1}. ${project.name}</div>
+                <div>${project.description}</div>
+                <div class="project-tech">
+                  ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                </div>
+                <div class="project-metrics">📊 ${project.metrics}</div>
+              </div>
+            `);
+          });
+          commandHistory.push("<span class='success'>✨ Click projects or type 'cd [name]' to launch! ✨</span>");
+          renderTerminal();
+        }, 600);
+        renderTerminal();
+        return;
+      }
+      
+      if (cmd === 'clear') {
+        commandHistory = ["<span class='success'>🧹 Terminal cleared!</span>"];
+        renderTerminal();
+        return;
+      }
+      
+      if (cmd === 'skills') {
+        commandHistory.push(`
+          <span class='info'>🛠️ Frontend:</span> React, Next.js, Vue 3, Svelte, Tailwind<br>
+          <span class='info'>⚙️ Backend:</span> Node.js, Python, Go, Express, FastAPI<br>
+          <span class='info'>🗄️ Database:</span> PostgreSQL, MongoDB, Redis, Supabase
+        `);
+        renderTerminal();
+        return;
+      }
+      
+      if (cmd === 'contact') {
+        commandHistory.push(`
+          <span class='success'>📧 your.email@domain.com</span><br>
+          <span class='success'>💼 linkedin.com/in/yourprofile</span><br>
+          <span class='success'>🐙 github.com/yourusername</span>
+        `);
+        renderTerminal();
+        return;
+      }
+      
+      commandHistory.push("<span class='error'>❌ Command not found. Try 'projects', 'skills', 'contact', or 'clear'</span>");
+      renderTerminal();
+    }
+
+    function scrollToBottom() {
+      const body = document.getElementById('terminal-body');
+      setTimeout(() => {
+        body.scrollTop = body.scrollHeight;
+      }, 100);
+    }
+
+    // Mouse parallax
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 15;
+      const y = (e.clientY / window.innerHeight - 0.5) * 15;
+      document.querySelector('.terminal').style.transform = 
+        `translate(-50%, -50%) rotateX(${y}deg) rotateY(${x}deg)`;
+    });
+
+    // Init
+    createParticles();
+    renderTerminal();
+    
+    // Auto-show projects
+    setTimeout(() => processCommand('projects'), 1500);
+  </script>
+</body>
+</html>

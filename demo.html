@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Left Profile Card -->
+    <div class="profile-card">
+        <div class="profile-pic"></div>
+        <h2>ADAM MILLER</h2>
+        <p>Student Profile</p>
+        <hr>
+        <p>Email: adam@gmail.com</p>
+        <p>Phone: 9876543210</p>
+    </div>
+
+    <!-- Right Dashboard -->
+    <div class="dashboard">
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar">
+            <ul>
+                <li>Academic</li>
+                <li>Sports</li>
+                <li>Music</li>
+                <li>Events</li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+
+            <!-- Top Percentage Boxes -->
+            <div class="top-boxes">
+                <div class="box">90%</div>
+                <div class="box">85%</div>
+            </div>
+
+            <!-- Graphs Section -->
+            <div class="graphs">
+
+                <!-- Line Graph -->
+                <div class="line-graph">
+                    <div class="line"></div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="pie-chart"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    width: 250px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    background: #ddd;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+}
+
+/* Dashboard */
+.dashboard {
+    display: flex;
+    flex: 1;
+    margin-left: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 150px;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Top Boxes */
+.top-boxes {
+    display: flex;
+    gap: 20px;
+}
+
+.box {
+    flex: 1;
+    background: #e3f2fd;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* Graph Section */
+.graphs {
+    display: flex;
+    margin-top: 30px;
+    gap: 30px;
+}
+
+/* Line Graph */
+.line-graph {
+    width: 300px;
+    height: 200px;
+    background: #fafafa;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.line {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top right, transparent 45%, blue 50%);
+}
+
+/* Pie Chart */
+.pie-chart {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #4caf50 0% 45%,
+        #ff9800 45% 78%,
+        #2196f3 78% 100%
+    );
+}
+</style>
+
+</body>
+</html>
