@@ -8,7 +8,13 @@
 </head>
 
 <body>
-    <div class="one"><div class="two"><div class="three"><div class="four">!! hello world !!</div></div></div></div>
+    <div class="one">
+        <div class="two">
+            <div class="three">
+                <div class="four">!! hello world !!</div>
+            </div>
+        </div>
+    </div>
     <style>
         .one {
             height: 700px;
@@ -28,7 +34,6 @@
             width: 700px;
             background: green;
             justify-content: center;
-            align: center;
             display: flex;
             align-items: center;
             border-radius: 20%;
@@ -44,7 +49,6 @@
             background: yellow;
             justify-content: center;
             display: flex;
-            align: center;
             align-items: center;
             border-radius: 20%;
             border-color: black;
@@ -60,7 +64,6 @@
             justify-content: center;
             display: flex;
             text-align: center;
-            align: center;
             align-items: center;
             border-radius: 20%;
             border-color: black;
@@ -70,6 +73,7 @@
         }
     </style>
 </body>
+
 </html>
 <html>
 <header>
@@ -115,13 +119,14 @@
 
 
 <style>
-    *{
+    * {
         margin: 0;
         padding: 0;
-        border-sizing: border-box;
+        box-sizing: border-box;
 
     }
-    header{
+
+    header {
         border: 1px solid black;
         height: 50px;
         width: 100%;
@@ -130,7 +135,8 @@
         justify-content: space-around;
         gap: 5px;
     }
-    #logo{
+
+    #logo {
         border: 2px salmon dimgray;
         height: 55px;
         width: 55px;
@@ -141,7 +147,8 @@
         border-radius: 50%;
         background-color: red;
     }
-    nav{
+
+    nav {
         border-style: 2px solid blue;
         height: 70%;
         width: 40%;
@@ -151,12 +158,14 @@
         border-radius: 20%;
 
     }
-    nav a{
+
+    nav a {
         text-decoration: none;
         color: pink;
 
     }
-    #navbtn{
+
+    #navbtn {
         height: 60%;
         width: 9%;
         border-radius: 20%;
@@ -164,10 +173,11 @@
         font-weight: bold;
         background: green;
     }
-    #hero{
+
+    #hero {
         height: 65vh;
         width: 100%;
-        background-image:  rgba(0,0,0,0.5);
+        background-image: rgba(0, 0, 0, 0.5);
         background-image: url(back.jpg);
         background-repeat: no-repeat;
         background-size: cover;
@@ -175,8 +185,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-}
-    #hbtn{
+    }
+
+    #hbtn {
         height: 45px;
         width: 140px;
         border: none;
@@ -187,52 +198,53 @@
         font-weight: bold;
         cursor: pointer;
         transition: 0.3s ease;
-}
+    }
 
-#hbtn:hover{
+    #hbtn:hover {
         background-color: #e68900;
         transform: scale(1.05);
-}
-.about-section{
+    }
+
+    .about-section {
         padding: 80px 10%;
         background: #111;
         color: white;
-}
+    }
 
-.about-container{
+    .about-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 50px;
         flex-wrap: wrap;
-}
+    }
 
-    .about-image img{
+    .about-image img {
         width: 320px;
         height: 400px;
         object-fit: cover;
         border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
 
-    .about-content{
+    .about-content {
         max-width: 600px;
     }
 
-    .about-content h2{
+    .about-content h2 {
         font-size: 42px;
         margin-bottom: 20px;
         color: #00ffff;
-    }   
+    }
 
-    .about-content p{
+    .about-content p {
         font-size: 18px;
         line-height: 1.8;
         margin-bottom: 25px;
         color: #ddd;
     }
 
-    .about-content button{
+    .about-content button {
         padding: 14px 30px;
         border: none;
         background: #00ffff;
@@ -243,8 +255,6 @@
         cursor: pointer;
         transition: 0.3s;
     }
-
-
 </style>
-</html>
 
+</html>
